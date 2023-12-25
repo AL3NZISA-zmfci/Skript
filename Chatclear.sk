@@ -1,0 +1,10 @@
+command /clearchat:
+    aliases: /cc,/cchat 
+    permission: chat.clear
+    permission message: &cYou do not have access to this command!
+    trigger:
+        loop 300 times:
+            broadcast ""
+            broadcast ""
+            broadcast ""
+        broadcast "&aChat was cleared by &a&l%player%&7!"
