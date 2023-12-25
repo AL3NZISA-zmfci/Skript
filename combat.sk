@@ -1,0 +1,51 @@
+options:
+	prefix: &aServer &8| &7
+	cooldown: 15
+
+variables:
+    {al3nzisa.combatlog::%player%} = 0
+
+on damage:
+    if the attacker is a player:
+        if the victim is a player:
+            if {al3nzisa.combatlog.%victim%} is not set:
+                set {al3nzisa.combatlog.%victim%} to 1
+                set {al3nzisa.count.%victim%} to {@cooldown}
+                send "{@prefix}&cʏᴏᴜ ᴀʀᴇ ɪɴ ᴄᴏᴍʙᴀᴛ" to victim
+
+                set {al3nzisa.combatlog.%attacker%} to 1
+                set {al3nzisa.count.%attacker%} to {@cooldown}
+                send "{@prefix}&cʏᴏᴜ ᴀʀᴇ ɪɴ ᴄᴏᴍʙᴀᴛ" to attacker
+
+            else if {al3nzisa.combatlog.%victim%} is set:
+                set {al3nzisa.count.%attacker%} to {@cooldown}
+
+                set {al3nzisa.count.%victim%} to {@cooldown}
+
+on quit:
+    if {al3nzisa.combatlog.%player%} is set:
+        make console execute command "/kill %player%"
+        clear {al3nzisa.combatlog.%player%}
+        broadcast "{@prefix}<##fd00d7>&l%player% &cʟᴏɢɢᴇᴅ ᴏᴜᴛ ɪɴ ᴄᴏᴍʙᴀᴛ"
+
+on death:
+    force the victim to respawn
+    clear {al3nzisa.count.%victim%}
+    clear {al3nzisa.combatlog.%victim%}
+
+on command:
+    if {al3nzisa.combatlog.%player%} is set:
+        if player does not have permissions "op":
+            cancel event
+            send "{@prefix}&cʏᴏᴜ ᴄᴀɴɴᴏᴛ ᴅᴏ ᴄᴏᴍᴍᴀɴᴅs ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+every 1 seconds:
+    loop all players:
+        if {al3nzisa.count.%loop-player%} is set:
+            if {al3nzisa.count.%loop-player%} is greater than 0:
+                remove 1 from {al3nzisa.count.%loop-player%}
+                send action bar "&cʟᴏɢ &7| &c%{al3nzisa.count.%loop-player%}%" to loop-player
+            else if {al3nzisa.count.%loop-player%} is less than or equal to 0:
+                clear {al3nzisa.combatlog.%loop-player%}
+                clear {al3nzisa.count.%loop-player%}
+                send "{@prefix}&cʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ" to loop-player
