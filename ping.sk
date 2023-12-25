@@ -1,0 +1,32 @@
+command /ping [<player>]:
+    permission: al3nzisa.ping.use
+    permission message: &fUnknown command. Type "/help" for help.
+    trigger:
+        if arg 1 is not set:
+            send action bar "<##fd00d7>&lʏᴏᴜʀ ᴘɪɴɢ ɪs %player's ping%." to player
+        else:
+            send action bar "<##fd00d7>&l%arg-1%'s ᴘɪɴɢ ɪs %player-arg's ping%." to player
+#Mention
+on chat:
+    loop all players:
+        if message contains "%loop-player%":
+            replace all "%loop-player%" with "&b@%loop-player%&r" in message
+            if {getPinged.%loop-player%} is true:
+                play sound "BLOCK_NOTE_BLOCK_PLING" with volume 1 and pitch 2 to loop-player
+            else:
+                stop  
+
+command /pinged:
+    permission: al3nzisa.pinged.use
+    permission message: &fUnknown command. Type "/help" for help.
+    usage: Incorrect usage&8: &c&l/pinged &7(&c&lon&7) &7&c&koff&7)
+    trigger:
+        if arg-1 is "on"
+          set {getPinged.%player%} to true
+          send "&aYou will now get pinged!"
+      else if arg-1 is "off"
+          set {getPinged.%player%} to false
+          send "&cYou will now not get pinged!"
+
+on tab complete of "/pinged":
+    set tab completions for position 1 to "on" and "off"
