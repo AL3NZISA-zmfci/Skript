@@ -1,6 +1,35 @@
+every second:
+    loop all players:
+        add 1 to {s::%loop-player's uuid%}
+        if {s::%loop-player's uuid%} > 59:
+            remove 60 from {s::%loop-player's uuid%} 
+            add 1 to {m::%loop-player's uuid%}
+        if {m::%loop-player's uuid%} > 59:
+            remove 60 from {m::%loop-player's uuid%}
+            add 1 to {h::%loop-player's uuid%}
+        if {h::%loop-player's uuid%} > 23:
+            remove 24 from {h::%loop-player's uuid%}
+            add 1 to {d::%loop-player's uuid%}
+
 command /playtime [<offlineplayer>]:
-     trigger:
-          if arg-1 is set:
-               send "&7[&b&lPx&9&lBox&7] &7%arg-1%'s playtime is &a%arg-1's time played%"
-          else:
-               send "&7[&b&lPx&9&lBox&7] &cYou have played &a%player's time played%"
+    trigger:
+        arg isn't set:
+            wait 1 tick
+            send ""
+            send "&7&l    ʏᴏᴜʀ ᴘʟᴀʏᴛɪᴍᴇ (<##fd00d7>&l%player%&f)"
+            send ""
+            send "&7&l  sᴇᴄᴏɴᴅs:&d %{s::%player's uuid%}%"
+            send "&7&l  ᴍɪɴᴜᴛᴇs:&d %{m::%player's uuid%}%"
+            send "&7&l  ʜᴏᴜʀs:&d %{h::%player's uuid%}%"
+            send "&7&l  ᴅᴀʏs:&d %{d::%player's uuid%}%"
+            send ""
+        else:
+            wait 1 tick
+            send ""
+            send "&7&l    ᴘʟᴀʏᴛɪᴍᴇ ᴏғ <##fd00d7>&l%arg%"
+            send ""
+            send "&7&l  sᴇᴄᴏɴᴅs:&d %{s::%arg's uuid%}%"
+            send "&7&l  ᴍɪɴᴜᴛᴇs:&d %{m::%arg's uuid%}%"
+            send "&7&l  ʜᴏᴜʀs:&d %{h::%arg's uuid%}%"
+            send "&7&l  ᴅᴀʏs:&d %{d::%arg's uuid%}%"
+            send ""
