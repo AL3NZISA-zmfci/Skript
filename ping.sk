@@ -22,10 +22,10 @@ command /pinged:
     usage: Incorrect usage&8: &c&l/pinged &7(&c&lon&7) &7&c&koff&7)
     trigger:
         if arg-1 is "on"
-          set {getPinged.%player%} to true
+          set {al3nzisa.%player%} to true
           send "&aYou will now get pinged!"
       else if arg-1 is "off"
-          set {getPinged.%player%} to false
+          set {al3nzisa.%player%} to false
           send "&cYou will now not get pinged!"
 
 on tab complete of "/pinged":
