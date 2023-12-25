@@ -1,0 +1,6 @@
+command /playtime [<offlineplayer>]:
+     trigger:
+          if arg-1 is set:
+               send "&7[&b&lPx&9&lBox&7] &7%arg-1%'s playtime is &a%arg-1's time played%"
+          else:
+               send "&7[&b&lPx&9&lBox&7] &cYou have played &a%player's time played%"
