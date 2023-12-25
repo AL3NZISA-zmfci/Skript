@@ -1,0 +1,3 @@
+on right click with shield:
+    cancel event
+    send "{@prefix}Shields are disabled on this server." to player
